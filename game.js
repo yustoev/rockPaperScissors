@@ -1,72 +1,80 @@
+let btnRock = document.getElementById('btnRock');
+let btnPaper = document.getElementById('btnPaper');
+let btnScissors = document.getElementById('btnScissors');
+let scoreBoard = document.getElementById('scoreBoard');
+        let humanChoice;
+
+        let playerOnePoints = 0;
+        let playerTwoPoints = 0;
+    
+btnRock.addEventListener('click', () => {
+     humanChoice = 'rock';
+     playGame();
+});
+
+btnPaper.addEventListener('click', () => {
+    humanChoice =  'paper';
+    playGame();
+});
+
+btnScissors = btnScissors.addEventListener('click', () => {
+    humanChoice = 'scissors';
+    playGame();
+});
+
 function choice(number) {
     if(number == 1) {
-        return "rock";
+        return 'rock';
     } else if (number == 2) {
-        return "paper";
+        return 'paper';
     }else {
-        return "scissors";
+        return 'scissors';
     };
 };
 
 function getComputerChoice() {
     let getComputerNumber = Math.floor(Math.random() * 3) + 1
-    return getComputerNumber;
-}
-
-function humanChoice () {
-    let input =  prompt("Enter number from 1 to 3:");
-    while (input < 1 || input > 3 || isNaN(input)) {
-        input = Number(prompt("Invalid input! Enter number from 1 to 3:"));
-    }
-    return input;
-};
-
-function getHumanChoice (num) {
-    return choice(num);
+    return choice(getComputerNumber);
 };
 
 function playGame () {
-        let playerOnePoints = 0;
-        let playerTwoPoints = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerOne = getComputerChoice();
-        let playerTwo = humanChoice();
-        console.log(getHumanChoice(playerTwo));
-        console.log(choice(playerOne));
         
-        if(playerOne == 1 && playerTwo == 2) {
+        let playerOne = getComputerChoice();
+        let playerTwo = humanChoice;
+        
+        console.log(playerOne);
+        console.log(playerTwo);
+        
+        if(playerOne == 'rock' && playerTwo == 'paper') {
+            console.log("point for player 2");
+            
             playerTwoPoints += 1;
-        } else if (playerOne == 1 && playerTwo == 3) {
+        } else if (playerOne == 'rock' && playerTwo == 'scissors') {
+            console.log("point for player 1");
             playerOnePoints += 1;
-        } else if (playerOne == 2 && playerTwo == 3) {
+        } else if (playerOne == 'paper' && playerTwo == 'scissors') {
+            console.log("point for player 2");
             playerTwoPoints += 1;
-        } else if (playerOne == 3 && playerTwo == 1) {
+        } else if (playerOne == 'scissors' && playerTwo == 'rock') {
+            console.log("point for player 2");
             playerTwoPoints += 1;
-        } else if (playerOne == 3 && playerTwo == 2) {
+        } else if (playerOne == 'scissors' && playerTwo == 'paper') {
+            console.log("point for player 1");
             playerOnePoints += 1;
-        } else if (playerOne == playerTwo) {
-            i--;
+        } else if (playerOne == 'paper' && playerTwo == 'rock'){
+            playerOnePoints += 1;
         };
-    };
-
-function getWinner () {
         console.log(playerOnePoints);
         console.log(playerTwoPoints);
-}
-      if(playerOnePoints > playerTwoPoints) {
-        getWinner();
-        
-        console.log("Computer wins!");
-    } else {
-        getWinner();
-        
-        console.log("Human wins!"); 
+
+        scoreBoard.textContent = `${playerOnePoints} : ${playerTwoPoints}`;
+        if(playerOnePoints === 5) {
+        scoreBoard.textContent = "Computer wins!!!"
+        playerOnePoints = 0;
+        playerTwoPoints = 0;
+        }else if (playerTwoPoints === 5) {
+        scoreBoard.textContent = "Human wins!!!"
+        playerOnePoints = 0;
+        playerTwoPoints = 0;
+        };
     };
-};
-
-playGame();
-
-// Сега трябва да се направи точкова система, да се направи кое от камък ножица хартия побеждава.
-
-
-
